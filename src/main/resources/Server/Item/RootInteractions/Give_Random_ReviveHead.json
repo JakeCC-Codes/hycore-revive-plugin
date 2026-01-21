@@ -1,0 +1,21 @@
+{
+  "Interactions": [
+    {
+      "Type": "ModifyInventory",
+      "Effects": {
+        "ItemAnimationId": "Build",
+        "LocalSoundEventId": "SFX_Bone_Land"
+      },
+      "ItemToRemove": {
+        "Id": "Selector_Head",
+        "OverrideDroppedItemAnimation": true
+      },
+      "ItemToAdd": {
+        "Id": "Revive_Head",
+        "OverrideDroppedItemAnimation": true
+      },
+      "CancelOnItemChange": false,
+      "RunTime": 0
+    }
+  ]
+}

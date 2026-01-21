@@ -1,0 +1,15 @@
+{
+  "PermissionGroups": [
+    "Creative",
+    "Adventure",
+    "Spectator"
+  ],
+  "InteractionsOnEnter": {
+      "Interactions": [
+        {
+          "Type": "ApplyEffect",
+          "EffectId": "Creative"
+        }
+      ]
+    }
+}

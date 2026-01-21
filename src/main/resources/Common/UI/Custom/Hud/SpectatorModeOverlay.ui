@@ -1,0 +1,37 @@
+
+Group {
+  Background: "GhostlyMystOverlay.png";
+
+  Group {
+      Background: (Color: #000000(0.15));
+
+      Group {
+        LayoutMode: Left;
+
+        Label #SpectatorModeText {
+          Anchor: (Height: 48, Left: 36, Top: 45);
+          Text: %hycorerevive.customUI.spectator.title;
+          Style: (
+            FontSize: 28,
+            LetterSpacing: 1.8,
+            RenderBold: true,
+            HorizontalAlignment: Center,
+            RenderUppercase: true
+          );
+        }
+      }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Top: 54);
+        Label #Credits {
+            Anchor: (Height: 48, Left: 26, Top: 45);
+            Text: %hycorerevive.customUI.spectator.credits;
+            Style: (
+              FontSize: 24,
+              HorizontalAlignment: Center,
+              Wrap: true
+            );
+         }
+      }
+  }
+}

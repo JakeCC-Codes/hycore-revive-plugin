@@ -1,0 +1,80 @@
+{
+  "TranslationProperties": {
+    "Name": "hycorerevive.items.Selector_Head.name"
+  },
+  "Categories": [
+    "Blocks.Deco"
+  ],
+  "PlayerAnimationsId": "Item",
+  "IconProperties": {
+    "Scale": 0.9,
+    "Rotation": [
+      203,
+      45,
+      159
+    ],
+    "Translation": [
+      0,
+      -10
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "HycoreRevive"
+    ],
+    "Family": [
+      "JakeCCz"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Blocks_Wood",
+  "Quality": "Uncommon",
+  "Model": "Resources/BlockyHead/BlockyHead_Floor.blockymodel",
+  "Texture": "Resources/BlockyHead/SelectorHead_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Selector_Head.png",
+  "FirstPersonParticles": [
+    {
+      "Color": "#65bc5d",
+      "SystemId": "Temple_Light_Lantern"
+    }
+  ],
+  "Light": {
+    "Color": "#430",
+    "Radius": 0
+  },
+  "Particles": [
+    {
+      "SystemId": "Temple_Light_Lantern",
+      "Color": "#65bc5d"
+    }
+  ],
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 30
+      },
+      {
+        "ItemId": "Potion_Health",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Bone_Fragment",
+        "Quantity": 12
+      }
+    ],
+    "TimeSeconds": 0.4,
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Arcanebench",
+        "Categories": [
+          "Arcane_Misc"
+        ]
+      }
+    ]
+  },
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Give_Random_ReviveHead"
+  }
+}

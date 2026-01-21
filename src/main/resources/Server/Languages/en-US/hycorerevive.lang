@@ -1,0 +1,15 @@
+items.Revive_Head.name=Dead Player Skull
+items.Revive_Head_Generic.name=Revive Head
+items.Selector_Head.name=Selector Head
+
+items.Revive_Head_Description.name=Used to Revive The Player in Hycore Mode
+items.Revive_Head_Description_Generic.name=Used to Revive A Random Player in Hycore Mode
+
+customUI.respawnPage.title=You Died!
+customUI.respawnPage.subtitle=You cannot respawn in Hycore Mode!
+customUI.respawnPage.respawn=Spectate
+customUI.spectator.title=Spectator Mode
+customUI.spectator.credits=Thank you for using the HycoreReviveMode Plugin made by JakeCCz!
+
+commands.spectator.desc=HycoreReviveMode: Sets a specified player's gamemode to spectator.
+commands.spectator.hidden=Your gamemode has been updated to Spectator, you appear completely invisible to other players!

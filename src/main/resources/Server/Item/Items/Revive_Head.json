@@ -1,0 +1,86 @@
+{
+  "TranslationProperties": {
+    "Name": "hycorerevive.items.Revive_Head_Generic.name",
+    "Description": "hycorerevive.items.Revive_Head_Description_Generic.name"
+  },
+  "Icon": "Icons/ItemsGenerated/Revive_Head.png",
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Resources/BlockyHead/BlockyHead_Floor.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Resources/BlockyHead/ReviveHead_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "Group": "Wood",
+    "HitboxType": "Plant_Large",
+    "VariantRotation": "NESW",
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Soils"
+      }
+    },
+    "BlockParticleSetId": "Dust",
+    "BlockSoundSetId": "Bone",
+    "RotationYawPlacementOffset": "OneEighty",
+    "ParticleColor": "#c0a370",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full",
+          "MatchSelf": "Ignored"
+        }
+      ],
+      "South": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    }
+  },
+  "PlayerAnimationsId": "Item",
+  "IconProperties": {
+    "Scale": 0.9,
+    "Rotation": [
+      203,
+      45,
+      159
+    ],
+    "Translation": [
+      0,
+      -10
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "HycoreRevive"
+    ],
+    "Family": [
+      "JakeCCz"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Blocks_Wood",
+  "Quality": "Uncommon",
+  "State": {
+    "EntityDropped": {
+      "TranslationProperties": {
+        "Name": "hycorerevive.items.Revive_Head.name",
+        "Description": "hycorerevive.items.Revive_Head_Description.name"
+      },
+      "Quality": "Uncommon",
+      "Categories": [
+        ""
+      ]
+    }
+  },
+  "Categories": [
+    "Blocks.Deco"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "Cooldown": {
+    "Id": "BlockInteraction",
+    "Cooldown": 0.278,
+    "ClickBypass": true
+  },
+  "Settings": {
+    "Creative": {
+      "AllowSkipChainOnClick": true
+    }
+  },
+  "Interactions": [
+    {
+      "Type": "UseBlock",
+      "Failed": {
+        "Type": "PlaceBlock",
+        "RunTime": 0.125,
+        "Effects": {
+          "ItemAnimationId": "Build",
+          "WaitForAnimationToFinish": false
+        }
+      }
+    }
+  ]
+}

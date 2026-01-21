@@ -5,7 +5,9 @@
   "Description": "${plugin_description}",
   "Authors": [
     {
-      "Name": "${plugin_author}"
+      "Name": "${plugin_author}",
+      "Email": "${plugin_author_email}",
+      "Url": "${plugin_author_url}"
     }
   ],
   "Website": "${plugin_website}",

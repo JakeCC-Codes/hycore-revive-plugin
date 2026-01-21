@@ -1,4 +1,4 @@
-# Hytale Plugin Template
+# Hycore Revive Plugin
 
-A template for Hytale java plugins. Created by Up, and slightly modified by Kaupenjoe. 
+A Hytale java plugin which adds the Hardcore Mode difficulty to the game. It features a custom made Spectator gamemode, custom Player Head drops and unique system for reviving spectator players in multiplayer!
 

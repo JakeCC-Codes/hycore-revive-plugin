@@ -10,9 +10,13 @@ import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.interaction.ReviveManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
 
 import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
@@ -30,6 +34,11 @@ public class PlacePreventSystem extends EntityEventSystem<EntityStore, PlaceBloc
             if (uuidComponent != null) {
                 if (spectatorPlayers.contains(uuidComponent.getUuid())) {
                     event.setCancelled(true);
+                } else {
+                    World world = player.getWorld();
+                    if (world != null && (event.getItemInHand().getItemId().equals("Revive_Head") || event.getItemInHand().getItemId().equals("Revive_Head_State_EntityDropped"))) {
+                        CompletableFuture.runAsync(() -> ReviveManager.tryRevivePlayer(world, event), world);
+                    }
                 }
 
             }

@@ -30,20 +30,7 @@
     "BlockParticleSetId": "Dust",
     "BlockSoundSetId": "Bone",
     "RotationYawPlacementOffset": "OneEighty",
-    "ParticleColor": "#c0a370",
-    "Support": {
-      "Down": [
-        {
-          "FaceType": "Full",
-          "MatchSelf": "Ignored"
-        }
-      ],
-      "South": [
-        {
-          "FaceType": "Full"
-        }
-      ]
-    }
+    "ParticleColor": "#c0a370"
   },
   "PlayerAnimationsId": "Item",
   "IconProperties": {

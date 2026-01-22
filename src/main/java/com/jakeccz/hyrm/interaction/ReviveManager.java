@@ -1,11 +1,17 @@
 package com.jakeccz.hyrm.interaction;
 
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.math.vector.Transform;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -38,9 +44,10 @@ public class ReviveManager {
 
     private static boolean isAnimationPlaying = false;
 
-    synchronized public static boolean tryRevivePlayer(@NotNull World world, @NotNull PlaceBlockEvent event) {
+    synchronized public static boolean tryRevivePlayer(@NotNull World world, @NotNull PlaceBlockEvent event, Vector3f headRotation) {
         if (isAnimationPlaying) {return false;}
         Vector3i targetBlockPos = event.getTargetBlock().clone();
+        Vector3i targetFootPos = targetBlockPos.clone().add(new Vector3i(0, -1, 0));
         boolean blockSearchResult = testForStruct(targetBlockPos, world);
         if (!blockSearchResult) {
             return false;
@@ -48,7 +55,8 @@ public class ReviveManager {
         isAnimationPlaying = true;
         UUID[] specList = spectatorPlayers.toArray(new UUID[0]);
         PlayerRef specTarget = specList.length<1 ? null : Universe.get().getPlayer(specList[(int)(Math.random() * specList.length)]);
-        boolean specNotFound = specList.length<1 || specTarget == null;
+        Ref<EntityStore> specTargetRef = specTarget == null ? null : specTarget.getReference();
+        boolean specNotFound = specList.length<1 || specTarget == null || specTargetRef == null;
         (new Thread(() -> {
             setCandleStates(targetBlockPos, world, "Off", 0L, false);
             try {
@@ -65,6 +73,10 @@ public class ReviveManager {
         if (specNotFound) {
             return false;
         }
+        world.setBlock(targetBlockPos.getX(), targetBlockPos.getY(), targetBlockPos.getZ(), BlockType.EMPTY_KEY, 0);
+        world.setBlock(targetFootPos.getX(), targetFootPos.getY(), targetFootPos.getZ(), BlockType.EMPTY_KEY, 0);
+        Player.setGameMode(specTargetRef, GameMode.Adventure, specTargetRef.getStore());
+        specTarget.updatePosition(world, new Transform(targetFootPos.getX(), targetFootPos.getY(), targetFootPos.getZ()), headRotation);
 
         return true;
     }

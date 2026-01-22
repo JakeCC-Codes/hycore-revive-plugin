@@ -10,6 +10,7 @@ import com.hypixel.hytale.protocol.packets.interface_.HudComponent;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.hud.HudManager;
+import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
 import com.hypixel.hytale.server.core.event.events.ecs.ChangeGameModeEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -52,6 +53,15 @@ public class GamemodeChangeSystem extends EntityEventSystem<EntityStore, ChangeG
                     hudManager.showHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel);
                     hudManager.setCustomHud(playerRef, new EmptyOverlay(playerRef));
                 }, world);
+                MovementManager movementManager = (MovementManager)store.getComponent(ref, MovementManager.getComponentType());
+                if (movementManager != null && movementManager.getDefaultSettings() != null) {
+                    movementManager.getSettings().canFly = movementManager.getDefaultSettings().canFly;
+                    movementManager.getSettings().horizontalFlySpeed = movementManager.getDefaultSettings().horizontalFlySpeed;
+                    movementManager.getSettings().baseSpeed = movementManager.getDefaultSettings().baseSpeed;
+                    movementManager.getSettings().forwardSprintSpeedMultiplier = movementManager.getDefaultSettings().forwardSprintSpeedMultiplier;
+                    movementManager.getSettings().forwardRunSpeedMultiplier = movementManager.getDefaultSettings().forwardRunSpeedMultiplier;
+                    movementManager.update(playerRef.getPacketHandler());
+                }
             }
         }
     }

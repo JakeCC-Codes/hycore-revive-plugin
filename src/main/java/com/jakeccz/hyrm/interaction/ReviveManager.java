@@ -1,20 +1,17 @@
 package com.jakeccz.hyrm.interaction;
 
-import com.google.crypto.tink.subtle.Random;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.jakeccz.hyrm.HycoreReviveMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
 
 import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
@@ -39,12 +36,16 @@ public class ReviveManager {
             new Vector3i(1, -1, -1)
     };
 
+    private static boolean isAnimationPlaying = false;
+
     synchronized public static boolean tryRevivePlayer(@NotNull World world, @NotNull PlaceBlockEvent event) {
+        if (isAnimationPlaying) {return false;}
         Vector3i targetBlockPos = event.getTargetBlock().clone();
         boolean blockSearchResult = testForStruct(targetBlockPos, world);
         if (!blockSearchResult) {
             return false;
         }
+        isAnimationPlaying = true;
         UUID[] specList = spectatorPlayers.toArray(new UUID[0]);
         PlayerRef specTarget = specList.length<1 ? null : Universe.get().getPlayer(specList[(int)(Math.random() * specList.length)]);
         boolean specNotFound = specList.length<1 || specTarget == null;
@@ -55,7 +56,15 @@ public class ReviveManager {
             } catch (InterruptedException e) {
             }
             setCandleStates(targetBlockPos, world, "On", 750L, specNotFound);
+            try {
+                Thread.sleep(500L);
+            } catch (InterruptedException e) {
+            }
+            isAnimationPlaying = false;
         })).start();
+        if (specNotFound) {
+            return false;
+        }
 
         return true;
     }

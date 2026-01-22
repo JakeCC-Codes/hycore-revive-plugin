@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.hud.HudManager;
+import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -45,6 +46,15 @@ public class SpectatorUtil {
                         hudManager.hideHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel);
                         hudManager.setCustomHud(playerRef, new SpectatorOverlay(playerRef));
                     }, world);
+                    MovementManager movementManager = (MovementManager)componentAccessor.getComponent(ref, MovementManager.getComponentType());
+                    if (movementManager != null && movementManager.getDefaultSettings() != null) {
+                        movementManager.getSettings().canFly = true;
+                        movementManager.getSettings().horizontalFlySpeed = 15.48F;
+                        movementManager.getSettings().baseSpeed = 6.875F;
+                        movementManager.getSettings().forwardSprintSpeedMultiplier = 2.475F;
+                        movementManager.getSettings().forwardRunSpeedMultiplier = 1.5F;
+                        movementManager.update(playerRef.getPacketHandler());
+                    }
                 }
             }
         } catch (Exception e) {

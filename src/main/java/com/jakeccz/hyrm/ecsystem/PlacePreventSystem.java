@@ -36,7 +36,7 @@ public class PlacePreventSystem extends EntityEventSystem<EntityStore, PlaceBloc
                     event.setCancelled(true);
                 } else {
                     World world = player.getWorld();
-                    if (world != null && (event.getItemInHand().getItemId().equals("Revive_Head") || event.getItemInHand().getItemId().equals("Revive_Head_State_EntityDropped"))) {
+                    if (world != null && (event.getItemInHand().getItemId().equals("Revive_Head") || event.getItemInHand().getItemId().equals("*Revive_Head_State_EntityDropped"))) {
                         CompletableFuture.runAsync(() -> ReviveManager.tryRevivePlayer(world, event), world);
                     }
                 }

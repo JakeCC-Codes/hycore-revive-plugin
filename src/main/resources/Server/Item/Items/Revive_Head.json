@@ -30,7 +30,56 @@
     "BlockParticleSetId": "Dust",
     "BlockSoundSetId": "Bone",
     "RotationYawPlacementOffset": "OneEighty",
-    "ParticleColor": "#c0a370"
+    "ParticleColor": "#c0a370",
+    "State": {
+      "Definitions": {
+        "Unbreakable": {
+          "Gathering": {
+            "Breaking": {
+              "GatherType": "None"
+            }
+          },
+          "DrawType": "Model",
+          "CustomModel": "Resources/BlockyHead/BlockyHead_Floor.blockymodel",
+          "Material": "Solid",
+          "Opacity": "Transparent",
+          "HitboxType": "Plant_Large",
+          "RotationYawPlacementOffset": "OneEighty",
+          "VariantRotation": "NESW",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/BlockyHead/ReviveHead_Texture.png"
+            }
+          ],
+          "BlockSoundSetId": "Metal",
+          "ParticleColor": "#ff0043",
+          "BlockParticleSetId": "Glass"
+        },
+        "Breakable": {
+          "Group": "Wood",
+          "DrawType": "Model",
+          "Material": "Solid",
+          "Opacity": "Transparent",
+          "CustomModel": "Resources/BlockyHead/BlockyHead_Floor.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/BlockyHead/ReviveHead_Texture.png"
+            }
+          ],
+          "BlockParticleSetId": "Dust",
+          "ParticleColor": "#c0a370",
+          "VariantRotation": "NESW",
+          "RotationYawPlacementOffset": "OneEighty",
+          "Gathering": {
+            "Breaking": {
+              "GatherType": "Soils"
+            }
+          },
+          "HitboxType": "Plant_Large",
+          "BlockSoundSetId": "Bone"
+        }
+      }
+    }
   },
   "PlayerAnimationsId": "Item",
   "IconProperties": {

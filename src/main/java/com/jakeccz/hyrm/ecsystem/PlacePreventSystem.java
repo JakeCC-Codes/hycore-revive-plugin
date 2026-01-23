@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.jakeccz.hyrm.interaction.ReviveManager;
+import com.jakeccz.hyrm.util.SpectatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +38,7 @@ public class PlacePreventSystem extends EntityEventSystem<EntityStore, PlaceBloc
                 } else {
                     World world = player.getWorld();
                     if (world != null && (event.getItemInHand().getItemId().equals("Revive_Head") || event.getItemInHand().getItemId().equals("*Revive_Head_State_EntityDropped"))) {
-                        CompletableFuture.runAsync(() -> ReviveManager.tryRevivePlayer(world, event), world);
+                        commandBuffer.run((cb) -> ReviveManager.tryRevivePlayer(world, event));
                     }
                 }
 

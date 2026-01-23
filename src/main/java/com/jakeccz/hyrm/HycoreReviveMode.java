@@ -30,7 +30,6 @@ public class HycoreReviveMode extends JavaPlugin {
         INSTANCE = this;
         LOGGER.atInfo().log("%s[v%s] successfully installed!", this.getName(), this.getManifest().getVersion().toString());
         this.spectatorPlayers = new SpectatorUtil(Path.of("JakeCCz/spectatorPlayers.json"));
-        // TODO: Config that makes you stay in spectator mode when leaving and rejoining
     }
 
     public static HycoreReviveMode getInstance() {return INSTANCE;}
@@ -55,9 +54,7 @@ public class HycoreReviveMode extends JavaPlugin {
                     SpectatorUtil.setGameModeSpectator(ref, playerUUID, store);
                 } else {
                     if (playerRef != null && playerRef.isValid()) {
-                        this.spectatorPlayers.getList().forEach((uuid -> {
-                            playerRef.getHiddenPlayersManager().hidePlayer(uuid);
-                        }));
+                        this.spectatorPlayers.getList().forEach((uuid -> playerRef.getHiddenPlayersManager().hidePlayer(uuid)));
                     }
                 }
             }, player.getWorld());
@@ -68,7 +65,7 @@ public class HycoreReviveMode extends JavaPlugin {
             while(DeathComponent.getComponentType() == null) {
                 try {
                     Thread.sleep(50L);
-                } catch (InterruptedException var2) {
+                } catch (InterruptedException e) {
                 }
             }
 

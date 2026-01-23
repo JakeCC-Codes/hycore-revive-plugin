@@ -12,14 +12,10 @@ import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import com.jakeccz.hyrm.interaction.ReviveManager;
-import com.jakeccz.hyrm.util.SpectatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class PlacePreventSystem extends EntityEventSystem<EntityStore, PlaceBlockEvent> {
     public PlacePreventSystem() {
@@ -33,7 +29,7 @@ public class PlacePreventSystem extends EntityEventSystem<EntityStore, PlaceBloc
         if (player != null) {
             UUIDComponent uuidComponent = store.getComponent(ref, UUIDComponent.getComponentType());
             if (uuidComponent != null) {
-                if (spectatorPlayers.contains(uuidComponent.getUuid())) {
+                if (HycoreReviveMode.getInstance().spectatorPlayers.contains(uuidComponent.getUuid())) {
                     event.setCancelled(true);
                 } else {
                     World world = player.getWorld();

@@ -10,10 +10,9 @@ import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.event.events.ecs.DropItemEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class DropPreventSystem extends EntityEventSystem<EntityStore, DropItemEvent.PlayerRequest> {
     public DropPreventSystem() {
@@ -25,7 +24,7 @@ public class DropPreventSystem extends EntityEventSystem<EntityStore, DropItemEv
         Ref<EntityStore> ref = chunk.getReferenceTo(i);
         UUIDComponent uuidComponent = store.getComponent(ref, UUIDComponent.getComponentType());
         if (uuidComponent != null) {
-            if (spectatorPlayers.contains(uuidComponent.getUuid())) {
+            if (HycoreReviveMode.getInstance().spectatorPlayers.contains(uuidComponent.getUuid())) {
                 event.setCancelled(true);
             }
         }

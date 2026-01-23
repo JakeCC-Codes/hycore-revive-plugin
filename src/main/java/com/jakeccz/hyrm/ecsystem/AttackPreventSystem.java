@@ -7,11 +7,9 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class AttackPreventSystem extends DamageEventSystem {
     @Override
@@ -20,7 +18,7 @@ public class AttackPreventSystem extends DamageEventSystem {
             if (damage.getSource() instanceof Damage.EntitySource source) {
                 if (source.getRef() instanceof Ref<EntityStore> ref && ref.isValid()) {
                     if (ref.getStore().getComponent(ref, UUIDComponent.getComponentType()) instanceof UUIDComponent uuidComp) {
-                        if (spectatorPlayers.contains(uuidComp.getUuid())) {
+                        if (HycoreReviveMode.getInstance().spectatorPlayers.contains(uuidComp.getUuid())) {
                             damage.setAmount(0);
                         }
                     }

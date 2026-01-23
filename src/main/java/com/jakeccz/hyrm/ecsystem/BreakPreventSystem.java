@@ -12,10 +12,9 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class BreakPreventSystem extends EntityEventSystem<EntityStore, BreakBlockEvent> {
     public BreakPreventSystem() {
@@ -30,7 +29,7 @@ public class BreakPreventSystem extends EntityEventSystem<EntityStore, BreakBloc
             if (player != null) {
                 UUIDComponent uuidComponent = store.getComponent(ref, UUIDComponent.getComponentType());
                 if (uuidComponent != null) {
-                    if (spectatorPlayers.contains(uuidComponent.getUuid())) {
+                    if (HycoreReviveMode.getInstance().spectatorPlayers.contains(uuidComponent.getUuid())) {
                         event.setCancelled(true);
                     }
 

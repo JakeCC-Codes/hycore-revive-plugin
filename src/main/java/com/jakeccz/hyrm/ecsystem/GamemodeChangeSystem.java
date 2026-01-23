@@ -15,16 +15,14 @@ import com.hypixel.hytale.server.core.event.events.ecs.ChangeGameModeEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import com.jakeccz.hyrm.util.EmptyOverlay;
-import com.jakeccz.hyrm.util.SpectatorOverlay;
 import com.jakeccz.hyrm.util.SpectatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class GamemodeChangeSystem extends EntityEventSystem<EntityStore, ChangeGameModeEvent> {
     public GamemodeChangeSystem() {
@@ -37,8 +35,9 @@ public class GamemodeChangeSystem extends EntityEventSystem<EntityStore, ChangeG
         UUIDComponent uuidComponent = store.getComponent(ref, UUIDComponent.getComponentType());
         if (uuidComponent != null) {
             UUID playerUUID = uuidComponent.getUuid();
+            SpectatorUtil spectatorPlayers = HycoreReviveMode.getInstance().spectatorPlayers;
             if (spectatorPlayers.contains(playerUUID)) {
-                spectatorPlayers.remove(playerUUID);
+                spectatorPlayers.removeSpectator(playerUUID);
                 SpectatorUtil.showForAll(ref, playerUUID);
 
                 Player player = (Player)commandBuffer.getComponent(ref, Player.getComponentType());

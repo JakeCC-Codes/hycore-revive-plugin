@@ -16,6 +16,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.jakeccz.hyrm.HycoreReviveMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -25,8 +26,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static com.jakeccz.hyrm.util.SpectatorUtil.spectatorPlayers;
 
 public class ReviveManager {
     enum StructBlock {
@@ -60,7 +59,7 @@ public class ReviveManager {
             return false;
         }
         world.setBlockInteractionState(targetBlockPos, targetBlockType, "Unbreakable");
-        UUID[] specList = spectatorPlayers.toArray(new UUID[0]);
+        UUID[] specList = HycoreReviveMode.getInstance().spectatorPlayers.getListOnline().toArray(new UUID[0]);
         PlayerRef specTarget = specList.length<1 ? null : Universe.get().getPlayer(specList[(int)(Math.random() * specList.length)]);
         Ref<EntityStore> specTargetRef = specTarget == null ? null : specTarget.getReference();
         Player specPlayer = specTargetRef == null ? null : specTargetRef.getStore().getComponent(specTargetRef, Player.getComponentType());

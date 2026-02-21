@@ -24,12 +24,14 @@ public class HycoreReviveMode extends JavaPlugin {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static HycoreReviveMode INSTANCE;
     public SpectatorUtil spectatorPlayers;
+    public static final double ITEMDURABILITYLOSSPERCENTAGE = (double)100.0F;
+    public static final double ITEMAMOUNTLOSSPERCENTAGE = (double)100.0F;
 
     public HycoreReviveMode(JavaPluginInit init) {
         super(init);
-        INSTANCE = this;
-        LOGGER.atInfo().log("%s[v%s] successfully installed!", this.getName(), this.getManifest().getVersion().toString());
         this.spectatorPlayers = new SpectatorUtil(Path.of("JakeCCz/spectatorPlayers.json"));
+        LOGGER.atInfo().log("%s[v%s] successfully installed!", this.getName(), this.getManifest().getVersion().toString());
+        INSTANCE = this;
     }
 
     public static HycoreReviveMode getInstance() {return INSTANCE;}
@@ -70,6 +72,8 @@ public class HycoreReviveMode extends JavaPlugin {
             }
 
             this.getEntityStoreRegistry().registerSystem(new HycoreDeathSystem());
+            this.getEntityStoreRegistry().registerSystem(new HycoreItemDropConfigSystem());
+            this.getEntityStoreRegistry().registerSystem(new HycoreItemDropSystem());
             this.getEntityStoreRegistry().registerSystem(new AttackPreventSystem());
             this.getEntityStoreRegistry().registerSystem(new BreakPreventSystem());
             this.getEntityStoreRegistry().registerSystem(new PlacePreventSystem());

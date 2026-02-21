@@ -49,7 +49,7 @@ public class GamemodeChangeSystem extends EntityEventSystem<EntityStore, ChangeG
                 assert world != null;
                 CompletableFuture.runAsync(() -> {
                     HudManager hudManager = player.getHudManager();
-                    hudManager.showHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel);
+                    hudManager.showHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel, HudComponent.Hotbar);
                     hudManager.setCustomHud(playerRef, new EmptyOverlay(playerRef));
                 }, world);
                 MovementManager movementManager = (MovementManager)store.getComponent(ref, MovementManager.getComponentType());
@@ -59,6 +59,7 @@ public class GamemodeChangeSystem extends EntityEventSystem<EntityStore, ChangeG
                     movementManager.getSettings().baseSpeed = movementManager.getDefaultSettings().baseSpeed;
                     movementManager.getSettings().forwardSprintSpeedMultiplier = movementManager.getDefaultSettings().forwardSprintSpeedMultiplier;
                     movementManager.getSettings().forwardRunSpeedMultiplier = movementManager.getDefaultSettings().forwardRunSpeedMultiplier;
+                    movementManager.getSettings().jumpForce = movementManager.getDefaultSettings().jumpForce;
                     movementManager.update(playerRef.getPacketHandler());
                 }
             }

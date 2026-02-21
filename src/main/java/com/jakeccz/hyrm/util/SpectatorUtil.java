@@ -28,10 +28,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 public class SpectatorUtil extends BlockingDiskFile {
@@ -60,7 +58,7 @@ public class SpectatorUtil extends BlockingDiskFile {
                 if (world != null) {
                     CompletableFuture.runAsync(() -> {
                         HudManager hudManager = player.getHudManager();
-                        hudManager.hideHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel);
+                        hudManager.hideHudComponents(playerRef, HudComponent.Health, HudComponent.Stamina, HudComponent.InputBindings, HudComponent.Compass, HudComponent.Notifications, HudComponent.ObjectivePanel, HudComponent.Hotbar);
                         hudManager.setCustomHud(playerRef, new SpectatorOverlay(playerRef));
                     }, world);
                     MovementManager movementManager = (MovementManager)componentAccessor.getComponent(ref, MovementManager.getComponentType());
@@ -70,6 +68,7 @@ public class SpectatorUtil extends BlockingDiskFile {
                         movementManager.getSettings().baseSpeed = 6.875F;
                         movementManager.getSettings().forwardSprintSpeedMultiplier = 2.475F;
                         movementManager.getSettings().forwardRunSpeedMultiplier = 1.5F;
+                        movementManager.getSettings().jumpForce = 14.75F;
                         movementManager.update(playerRef.getPacketHandler());
                     }
                 }

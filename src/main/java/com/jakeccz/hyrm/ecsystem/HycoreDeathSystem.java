@@ -19,12 +19,13 @@ import org.bson.BsonString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class HycoreDeathSystem extends DeathSystems.OnDeathSystem {
 
     @Override
-    public void onComponentAdded(@NotNull Ref<EntityStore> ref, @NotNull DeathComponent deathComponent, @NotNull Store<EntityStore> store, @NotNull CommandBuffer<EntityStore> commandBuffer) {
+    public void onComponentAdded(@NotNull Ref<EntityStore> ref, @NotNull DeathComponent component, @NotNull Store<EntityStore> store, @NotNull CommandBuffer<EntityStore> commandBuffer) {
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         Player playerComp = store.getComponent(ref, Player.getComponentType());
         UUIDComponent uuidComp = store.getComponent(ref, UUIDComponent.getComponentType());
@@ -33,9 +34,15 @@ public class HycoreDeathSystem extends DeathSystems.OnDeathSystem {
         }
     }
 
-    private void onDeathReady(Ref<EntityStore> ref, Store<EntityStore> store, PlayerRef playerRef, Player playerComp, UUID playerUUID, CommandBuffer<EntityStore> commandBuffer) {
-        SpectatorUtil.setGameModeSpectator(ref, playerUUID, store);
+    @Override
+    public void onComponentRemoved(@Nonnull Ref<EntityStore> ref, @Nonnull DeathComponent component, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
+        UUIDComponent uuidComp = store.getComponent(ref, UUIDComponent.getComponentType());
+        if (uuidComp != null) {
+            commandBuffer.run((cb) -> SpectatorUtil.setGameModeSpectator(ref, uuidComp.getUuid(), store));
+        }
+    }
 
+    private void onDeathReady(Ref<EntityStore> ref, Store<EntityStore> store, PlayerRef playerRef, Player playerComp, UUID playerUUID, CommandBuffer<EntityStore> commandBuffer) {
         BsonDocument metadata = new BsonDocument();
         metadata.append("Username", new BsonString(playerRef.getUsername()));
         metadata.append("UUID", new BsonString(playerUUID.toString()));
@@ -57,7 +64,6 @@ public class HycoreDeathSystem extends DeathSystems.OnDeathSystem {
 
     @Override
     public @Nullable Query<EntityStore> getQuery() {
-        ComponentType<EntityStore, ?> type = this.componentType();
-        return Query.and(new Query[]{type});
+        return Player.getComponentType();
     }
 }

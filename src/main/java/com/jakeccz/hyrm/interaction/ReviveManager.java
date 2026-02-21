@@ -2,7 +2,6 @@ package com.jakeccz.hyrm.interaction;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.math.vector.Vector3i;
@@ -10,7 +9,7 @@ import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
-import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -85,6 +84,7 @@ public class ReviveManager {
                     world.setBlock(targetFootPos.getX(), targetFootPos.getY(), targetFootPos.getZ(), BlockType.EMPTY_KEY, 0);
                     teleportPlayer(specPlayer, targetFootPos.getX(), targetFootPos.getY(), targetFootPos.getZ());
                     Player.setGameMode(specTargetRef, GameMode.Adventure, specTargetRef.getStore());
+                    specPlayer.setInventory(new Inventory()); // Clear Inv
                 } else {
                     world.setBlockInteractionState(targetBlockPos, targetBlockType, "Breakable");
                 }
